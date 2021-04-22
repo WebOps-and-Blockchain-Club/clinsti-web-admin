@@ -1,0 +1,40 @@
+{
+  "complaints":[
+    {
+      "user_id":1,
+      "id":1,
+      "complaint_id":1,
+      "status":"posted",
+      "created_time":"2021-04-02 19:16:30.511+00",
+      "location":"IITM",
+      "description":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text"
+    },
+    {
+      "user_id":2,
+      "id":2,
+      "complaint_id":2,
+      "status":"posted",
+      "created_time":"2021-04-02 19:16:30.511+00",
+      "location":"IITM",
+      "description":"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout"
+    },
+    {
+      "user_id":3,
+      "id":3,
+      "complaint_id":3,
+      "status":"posted",
+      "created_time":"2021-04-02 19:16:30.511+00",
+      "location":"IITM",
+      "description":"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable."
+    },
+    {
+      "user_id":3,
+      "id":4,
+      "complaint_id":4,
+      "status":"posted",
+      "created_time":"2021-04-02 19:16:30.511+00",
+      "location":"IITM",
+      "description":"If you are going to use a passage of Lorem Ipsum, you need to be sure there isnt anything embarrassing hidden in the middle of text"
+    }
+  ]
+}
