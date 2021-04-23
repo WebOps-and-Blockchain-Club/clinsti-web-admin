@@ -37,6 +37,7 @@
 
 
 .complaint-preview {
+  border-radius: 5px;
   padding: 10px 16px;
   border-bottom: 1px solid #fafafa;
 }
@@ -49,12 +50,26 @@
   margin-bottom: 8px;
 }
 
+.posted {
+  background-color: #f16b94;
+}
+
+.solved {
+  background-color: #60ff68;
+}
+
+.processing {
+  background-color: #f5ae5e;
+}
+
 .complaint-list {
   height: 600px;
   overflow: auto;
 }
 
 .complaint-details {
+  height: 600px;
+  overflow: auto;
   padding: 10px 16px;
   box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
 }
@@ -63,4 +78,10 @@
   display: grid;
   grid-template-columns: 2fr 7fr;
   grid-gap: 20px;
+}
+
+.sign-in {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
 }

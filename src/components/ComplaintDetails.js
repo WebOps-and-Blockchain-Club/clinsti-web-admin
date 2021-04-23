@@ -10,12 +10,12 @@ const ComplaintDetails = () => {
       {isPending && <div>Loading...</div>}
       {complaint &&
         <div>
-          <h2>{complaint.complaint_id}</h2>
+          <h2>{complaint.id}</h2>
           <p>{complaint.location}</p>
           <p>{complaint.description}</p>
           <p>{complaint.status}</p>
           <p>{complaint.created_time}</p>
-          <p>User by -{complaint.user_id}</p>
+          <p>User id -{complaint.user_id}</p>
           <button>Update</button>
         </div>
       }
