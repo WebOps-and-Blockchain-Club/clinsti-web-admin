@@ -1,7 +1,7 @@
 import Admin from './components/Admin';
 import { useContext } from 'react';
 import Navbar from './components/Navbar';
-import AuthContext from './components/authContext';
+import AuthContext from './server/authContext';
 import {BrowserRouter, Route,Switch} from 'react-router-dom'
 import Settings from './components/Settings';
 import SignIn from './components/SignIn';

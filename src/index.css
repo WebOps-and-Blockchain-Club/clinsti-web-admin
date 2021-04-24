@@ -21,13 +21,16 @@
 .navbar .links {
   margin-left: auto;
 }
-.navbar a {
+.navbar .link {
   margin-left: 16px;
   text-decoration: none;
   padding: 6px;
 }
-.navbar a:hover {
+.navbar .link:hover {
   color: #f1356d;
+}
+.link:hover{
+  cursor: pointer;
 }
 .content {
   max-width: 1200px;
@@ -54,19 +57,21 @@
   background-color: #f16b94;
 }
 
-.solved {
+.completed {
   background-color: #60ff68;
 }
 
 .processing {
   background-color: #f5ae5e;
 }
+.invalid_complaint{
+  background-color: #745aeb;
+}
 
 .complaint-list {
   height: 600px;
   overflow: auto;
 }
-
 .complaint-details {
   height: 600px;
   overflow: auto;
@@ -80,7 +85,7 @@
   grid-gap: 20px;
 }
 
-.sign-in {
+.signin-form {
   max-width: 400px;
   margin: 40px auto;
   padding: 20px;

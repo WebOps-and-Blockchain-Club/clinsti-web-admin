@@ -1,24 +1,29 @@
-import axios from 'axios';
+
 import { useContext } from 'react';
-import {Link} from 'react-router-dom'
-import AuthContext from './authContext';
+import AuthContext from '../server/authContext';
+import { useHistory} from 'react-router';
 
 const Navbar = () => {
-  const {loggedIn,getLoggedIn}= useContext(AuthContext);
+  const {loggedIn,signOut}= useContext(AuthContext);
+  const history = useHistory()
 
-  async function logout(){
-    await axios.delete("http://localhost:3000/admin").then((res)=>{}).catch(()=>{});
-    await getLoggedIn();
+  const logout = async() =>{
+    await signOut()
+    history.replace('/')
   }
+
+  const home = async() =>{
+    history.replace('/')
+  }
+
 
   return (
     <nav className="navbar">
-      <Link to="/"><h1>CLinsti</h1></Link>
+      <h1 className = "link" onClick = {()=>home()}>CLinsti</h1>
       {loggedIn &&
         <div className="links">
-          <Link to='/'>Home</Link>
-          {/* <Link to='/settings'>Settings</Link> */}
-          <button onClick={logout}>Logout</button>
+          <span className="link" onClick = {()=>home()}> Home </span>
+          <span className="link" onClick={()=>logout()}>Logout</span>
         </div>
       }
     </nav>
