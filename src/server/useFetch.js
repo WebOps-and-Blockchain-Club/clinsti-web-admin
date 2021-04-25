@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const useFetch = (url) => {
+const useFetch = (url,r) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
@@ -30,17 +30,19 @@ const useFetch = (url) => {
     })
     .catch(err => {
       if (!axios.isCancel(err)) {
-        setIsPending(false);
+        setIsPending(false)
+          if(err.response.status === 404){
+            setError('No Data Found')
+            return setData(null)
+
+          }
         setError(err.message);
-        if(err.response.status===404){
-          setError('no data')
-        }
       }
     })
 
     // abort the fetch
     return () => source.cancel();
-  }, [url])
+  }, [url,r])
 
   return { data, isPending, error };
 }

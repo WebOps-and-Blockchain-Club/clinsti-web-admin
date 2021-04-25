@@ -1,9 +1,12 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import useFetch from '../server/useFetch'
+const fileDownload = require('js-file-download')
 
 const ComplaintsList = () => {
   const history = useHistory()
+  const {id} = useParams()
   const click = (x) =>{
     history.replace(`/${x}`)
   }
@@ -16,7 +19,7 @@ const ComplaintsList = () => {
   const [nextDisable,setNextDisable] = useState(false)
   const [prevDisable,setPrevDisable] = useState(true)
   const [fLink,setFlink] = useState()
-  const {data:complaints,isPending,error} = useFetch(fLink)
+  const {data:complaints,isPending,error} = useFetch(fLink,id)
   useEffect(()=>{
     let link = 'http://localhost:3000/admin/complaints?'
     if(skip){
@@ -41,7 +44,7 @@ const ComplaintsList = () => {
   },[skip,limit,zone,sDate,eDate,status])
   
   useEffect(()=>{
-    if(error === 'no data'){
+    if(error === 'No Data Found'){
       if(skip > limit){
         setSkip(skip-limit)
         setNextDisable(true)
@@ -130,6 +133,28 @@ const ComplaintsList = () => {
     }
   }
 
+  const Report = () =>{
+    let link = 'http://localhost:3000/admin/report?'
+    if(sDate){
+      link += `dateFrom=${sDate}&`
+    }
+    if(eDate){
+      link += `dateTo=${eDate}&`
+    }
+    if(zone.size){
+      link += `zone=${[...zone].join(',')}&`
+    }
+    if(status.size){
+      link += `status=${[...status].join(',')}&`
+    }
+    console.log(link)
+    axios.get(link).then((v)=>{
+      fileDownload(v.data,`Report-${new Date().toJSON()}.csv`)
+    }).catch((e)=>{
+      console.log(e)
+    })
+  }
+
   return (
     <div className="complaint-list split-child-1">
       <div className="sdate-select">
@@ -158,9 +183,10 @@ const ComplaintsList = () => {
       <div className="edate-select">
         <input type="date" onChange={dateCheck} name="eDate" value={eDate ?? new Date().toJSON().split('T')[0] }/>
       </div>
+      <button onClick={()=>{Report()}}>Print All</button>
       {isPending && <div>Loading...</div> }
       {error && <div>{error}</div> }
-      {!complaints && !isPending && !error && <div>Empty</div> }
+      {!complaints && !isPending && !error && <div>No Data Found</div> }
       {complaints && complaints.map((complaint)=>(
         <div className={`complaint-preview link ${complaint.status}`} onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>
           <p>{complaint._location}</p>

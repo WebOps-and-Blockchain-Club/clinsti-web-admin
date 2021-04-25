@@ -79,10 +79,23 @@
   box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
 }
 
-.split-container {
+.split-container-2-7 {
   display: grid;
   grid-template-columns: 2fr 7fr;
   grid-gap: 20px;
+}
+
+.split-container-1-1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.split-container-1-1-1 {
+  font-size: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
 }
 
 .signin-form {
