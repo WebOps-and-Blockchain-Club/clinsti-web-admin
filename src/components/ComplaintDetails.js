@@ -3,7 +3,7 @@ import useFetch from '../server/useFetch';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const ComplaintDetails = () => {
+const ComplaintDetails = ({setSelectedImg}) => {
   const {id} = useParams()
   const history = useHistory()
   const {data:complaint,isPending,error} = useFetch(`http://localhost:3000/admin/complaints/${id}`)
@@ -16,7 +16,6 @@ const ComplaintDetails = () => {
     })
     history.replace('/')
     history.replace(`${id}`)
-    
   }
   useEffect(()=>{
     if(complaint){
@@ -41,14 +40,20 @@ const ComplaintDetails = () => {
       {isPending && <div>Loading...</div>}
       {complaint &&
         <div>
-          {console.log(complaint)}
           <h2>{complaint.complaint_id}</h2>
+          {complaint.images && 
+            complaint.images.map((img)=>(
+              <img alt={'img'} style={{padding:5}} width={200} 
+              src={`http://localhost:3000/admin/images/${complaint.user_id}_${img}`}
+              onClick={()=>{setSelectedImg(`http://localhost:3000/admin/images/${complaint.user_id}_${img}`)}} 
+              key={img}></img>
+            ))
+          }
           <p>Location - {complaint._location}</p>
           <p>Description - {complaint.description}</p>
           <p>posting time - {complaint.created_time}</p>
           <p>feedback_rating - {complaint.feedback_rating}</p>
           <p>feedback_remark - {complaint.feedback_remark}</p>
-          <p> images - {complaint.images}</p>
           <p>Waste type - {complaint.waste_type}</p>
           <p>Zone - {complaint.zone}</p>
           <p>complete-time-{complaint.completed_time}</p>
