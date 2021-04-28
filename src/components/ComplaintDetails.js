@@ -56,7 +56,7 @@ const ComplaintDetails = ({setSelectedImg}) => {
           <p>feedback_remark - {complaint.feedback_remark}</p>
           <p>Waste type - {complaint.waste_type}</p>
           <p>Zone - {complaint.zone}</p>
-          <p>complete-time-{new Date(complaint.completed_time).toLocaleString()}</p>
+          {complaint.status === "completed" && <p>completing time-{new Date(complaint.completed_time).toLocaleString()}</p>}
           <p>status - <select id="1" value={status} onChange={changeStatus}>
               <option value="posted">posted</option>
               <option value="processing">processing</option>

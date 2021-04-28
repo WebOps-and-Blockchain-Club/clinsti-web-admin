@@ -176,6 +176,7 @@ const ComplaintsList = () => {
         <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
       </div>
       <button onClick={()=>{Report()}}>Print All</button>
+
       {isPending && <div>Loading...</div> }
       {error && <div>{error}</div> }
       {!complaints && !isPending && !error && <div>No Data Found</div> }
@@ -183,7 +184,7 @@ const ComplaintsList = () => {
         <div className={`complaint-preview link ${complaint.status}`} onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>
           <p>{complaint._location}</p>
           <p>{complaint.status}</p>
-          <p> {complaint.created_time}</p>
+          <p> {new Date(complaint.created_time).toLocaleString()}</p>
         </div>
       ))}
     </div>
