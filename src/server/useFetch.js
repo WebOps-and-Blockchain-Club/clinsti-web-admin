@@ -8,7 +8,6 @@ const useFetch = (url,r) => {
 
   useEffect(() => {
     if(!url){return}
-    console.log(url);
     const source = axios.CancelToken.source();
     axios.get(url, {
       cancelToken: source.token

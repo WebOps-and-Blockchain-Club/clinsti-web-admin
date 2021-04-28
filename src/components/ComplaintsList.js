@@ -14,7 +14,7 @@ const ComplaintsList = () => {
   const [limit,setLimit] = useState(10)
   const [zone,setZone] = useState(new Set())
   const [sDate,setSDate] = useState("2021-01-01")
-  const [eDate,setEDate] = useState()
+  const [eDate,setEDate] = useState("")
   const [status,setStatus] = useState(new Set())
   const [nextDisable,setNextDisable] = useState(false)
   const [prevDisable,setPrevDisable] = useState(true)
@@ -85,39 +85,32 @@ const ComplaintsList = () => {
 
   const zoneCheck = (e) =>{
     reset()
-    console.log(e.target.checked,e.target.name)
     if(e.target.checked){
       let x = new Set(zone)
       x.add(e.target.name)
-      console.log(x)
       setZone(x)
     }else{
       let x = new Set(zone)
       x.delete(e.target.name)
-      console.log(x)
       setZone(x)
     }
   }
 
   const statusCheck = (e) =>{
     reset()
-    console.log(e.target.checked,e.target.name)
     if(e.target.checked){
       let x = new Set(status)
       x.add(e.target.name)
-      console.log(x)
       setStatus(x)
     }else{
       let x = new Set(status)
       x.delete(e.target.name)
-      console.log(x)
       setStatus(x)
     }
   }
 
   const dateCheck = (e) =>{
     reset()
-    console.log(e.target.value,e.target.name);
     if(e.target.name === "sDate"){
       if(eDate && eDate <e.target.value){
         setSDate(eDate)
@@ -147,7 +140,6 @@ const ComplaintsList = () => {
     if(status.size){
       link += `status=${[...status].join(',')}&`
     }
-    console.log(link)
     axios.get(link).then((v)=>{
       fileDownload(v.data,`Report-${new Date().toJSON()}.csv`)
     }).catch((e)=>{
@@ -181,7 +173,7 @@ const ComplaintsList = () => {
         <input type="checkbox" onChange={statusCheck} name="invalid_complaint" /> invalid_complaint
       </div>
       <div className="edate-select">
-        <input type="date" onChange={dateCheck} name="eDate" value={eDate ?? new Date().toJSON().split('T')[0] }/>
+        <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
       </div>
       <button onClick={()=>{Report()}}>Print All</button>
       {isPending && <div>Loading...</div> }
