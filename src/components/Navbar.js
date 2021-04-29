@@ -1,4 +1,3 @@
-
 import { useContext } from 'react';
 import AuthContext from '../server/authContext';
 import { useHistory} from 'react-router';
@@ -22,6 +21,7 @@ const Navbar = () => {
       {loggedIn &&
         <div className="links">
           <span className="link" onClick = {()=>go('/')}> Home </span>
+          <span className="link" onClick={()=>{go('/complaints')}} >Complaints</span>
           <span className="link" onClick = {()=>go('/feedback')}> Feedbacks </span>
           <span className="link" onClick={()=>logout()}>Logout</span>
         </div>

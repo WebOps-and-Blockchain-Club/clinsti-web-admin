@@ -8,7 +8,7 @@ const ComplaintsList = () => {
   const history = useHistory()
   const {id} = useParams()
   const click = (x) =>{
-    history.replace(`/${x}`)
+    history.replace(`/complaints/${x}`)
   }
   const [skip,setSkip] = useState(0)
   const [limit,setLimit] = useState(10)

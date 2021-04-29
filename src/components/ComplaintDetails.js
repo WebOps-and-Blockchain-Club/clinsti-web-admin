@@ -15,7 +15,7 @@ const ComplaintDetails = ({setSelectedImg}) => {
       status,remark
     })
     history.replace('/')
-    history.replace(`${id}`)
+    history.replace(`/complaints/${id}`)
   }
   useEffect(()=>{
     if(complaint){
@@ -35,39 +35,42 @@ const ComplaintDetails = ({setSelectedImg}) => {
   }
 
   return (
-    <div className="complaint-details split-child-2">
-      {error && <div>{error}</div>}
-      {isPending && <div>Loading...</div>}
-      {complaint &&
-        <div>
-          <h2>{complaint.complaint_id}</h2>
-          {complaint.images && 
-            complaint.images.map((img)=>(
-              <img alt={'img'} style={{padding:5}} width={200} 
-              src={`http://localhost:3000/admin/images/${complaint.user_id}_${img}`}
-              onClick={()=>{setSelectedImg(`http://localhost:3000/admin/images/${complaint.user_id}_${img}`)}} 
-              key={img}></img>
-            ))
-          }
-          <p>Location - {complaint._location}</p>
-          <p>Description - {complaint.description}</p>
-          <p>posting time - {new Date(complaint.created_time).toLocaleString()}</p>
-          <p>feedback_rating - {complaint.feedback_rating}</p>
-          <p>feedback_remark - {complaint.feedback_remark}</p>
-          <p>Waste type - {complaint.waste_type}</p>
-          <p>Zone - {complaint.zone}</p>
-          {complaint.status === "completed" && <p>completing time-{new Date(complaint.completed_time).toLocaleString()}</p>}
-          <p>status - <select id="1" value={status} onChange={changeStatus}>
-              <option value="posted">posted</option>
-              <option value="processing">processing</option>
-              <option value="completed">completed</option>
-              <option value="invalid_complaint">invalid complaint</option>
-            </select>
-          </p>
-          <p>remark - <input type="text" name="remark" value={remark} onChange={changeRemark} placeholder={"write remark"}/></p>
-          <button onClick={()=>{upDate()} } disabled={!update}>Update</button>
-        </div>
-      }
+    <div className="complaint-view">
+      {!id && <div>Select a complaint</div> }
+      {id && <div className="complaint-details">
+        {error && <div>{error}</div>}
+        {isPending && <div>Loading...</div>}
+        {complaint &&
+          <div>
+            <h2>{complaint.complaint_id}</h2>
+            {complaint.images && 
+              complaint.images.map((img)=>(
+                <img alt={'img'} style={{padding:5}} width={200} 
+                src={`http://localhost:3000/admin/images/${complaint.user_id}_${img}`}
+                onClick={()=>{setSelectedImg(`http://localhost:3000/admin/images/${complaint.user_id}_${img}`)}} 
+                key={img}></img>
+              ))
+            }
+            <p>Location - {complaint._location}</p>
+            <p>Description - {complaint.description}</p>
+            <p>posting time - {new Date(complaint.created_time).toLocaleString()}</p>
+            <p>feedback_rating - {complaint.feedback_rating}</p>
+            <p>feedback_remark - {complaint.feedback_remark}</p>
+            <p>Waste type - {complaint.waste_type}</p>
+            <p>Zone - {complaint.zone}</p>
+            {complaint.status === "completed" && <p>completing time-{new Date(complaint.completed_time).toLocaleString()}</p>}
+            <p>status - <select id="1" value={status} onChange={changeStatus}>
+                <option value="posted">posted</option>
+                <option value="processing">processing</option>
+                <option value="completed">completed</option>
+                <option value="invalid_complaint">invalid complaint</option>
+              </select>
+            </p>
+            <p>remark - <input type="text" name="remark" value={remark} onChange={changeRemark} placeholder={"write remark"}/></p>
+            <button onClick={()=>{upDate()} } disabled={!update}>Update</button>
+          </div>
+        }
+      </div>}
     </div>
    );
 }
