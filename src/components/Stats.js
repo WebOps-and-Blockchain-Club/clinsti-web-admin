@@ -16,7 +16,7 @@ const Stats = () => {
             <div className="split-container-1-1-1">
               <PieCharT pie={stats['Academics Zone']} labels={'Academics Zone'} type={'status'}/>
               <PieCharT pie={stats['Hostel Zone']} labels={'Hostel Zone'} type={'status'}/>
-              <PieCharT pie={stats['Other Zone']} labels={'Other Zone'} type={'status'}/>
+              <PieCharT pie={stats['Residential Zone']} labels={'Residential Zone'} type={'status'}/>
             </div>
           </div>
           <div style={{padding:10}}>
@@ -25,7 +25,7 @@ const Stats = () => {
             <div className="split-container-1-1-1">
               <PieCharT pie={stats['Academics Zone']} labels={'Academics Zone'} type={'waste_type'}/>
               <PieCharT pie={stats['Hostel Zone']} labels={'Hostel Zone'} type={'waste_type'}/>
-              <PieCharT pie={stats['Other Zone']} labels={'Other Zone'} type={'waste_type'}/>
+              <PieCharT pie={stats['Residential Zone']} labels={'Residential Zone'} type={'waste_type'}/>
             </div>
           </div>
         </div>

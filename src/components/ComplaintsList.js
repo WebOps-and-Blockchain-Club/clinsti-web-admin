@@ -5,6 +5,19 @@ import useFetch from '../server/useFetch'
 const fileDownload = require('js-file-download')
 
 const ComplaintsList = () => {
+  const zoneValues = [
+    "Academic Zone",
+    "Hostel Zone",
+    "Residential Zone"
+  ]
+  const statusValues = [
+    "Pending transmission",
+    "Work is pending",
+    "Work in progress",
+    "Work completed",
+    "Closed with due justification"
+  ]
+  const limitValues = [5,10,25,50,100]
   const history = useHistory()
   const {id} = useParams()
   const click = (x) =>{
@@ -20,6 +33,7 @@ const ComplaintsList = () => {
   const [prevDisable,setPrevDisable] = useState(true)
   const [fLink,setFlink] = useState()
   const {data:complaints,isPending,error} = useFetch(fLink,id)
+
   useEffect(()=>{
     let link = 'http://localhost:3000/admin/complaints?'
     if(skip){
@@ -64,10 +78,12 @@ const ComplaintsList = () => {
       setNextDisable(true)
     }
   },[complaints,limit])
+
   const next = () =>{
     setSkip(skip+limit)
     setPrevDisable(false)
   }
+
   const previous = () => {
     setNextDisable(false)
     if (skip > limit){
@@ -77,6 +93,7 @@ const ComplaintsList = () => {
       setPrevDisable(true)
     }
   }
+  
   const reset = () =>{
     setPrevDisable(true)
     setNextDisable(false)
@@ -148,29 +165,26 @@ const ComplaintsList = () => {
   }
 
   return (
-    <div className="complaint-list split-child-1">
+    <div className="complaint-list-container">
       <div className="sdate-select">
         <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
       </div>
       <div className="zone-select">
-        <input type="checkbox" onChange={zoneCheck} name="Hostel" /> Hostel
-        <input type="checkbox" onChange={zoneCheck} name="Academics" /> Academics
-        <input type="checkbox" onChange={zoneCheck} name="Other" /> Other
+        {zoneValues && zoneValues.map((zn)=>(
+          <p key={zn}><input type="checkbox" onChange={zoneCheck} name={zn}/>{zn}</p>
+        ))}
       </div>
       <select id="1" value={limit} onChange={(e)=>{setLimit(parseInt(e.target.value));reset()}}>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
+        {limitValues && limitValues.map((v)=>(
+          <option value={v} key={v}>{v}</option>
+        ))}
       </select>
       <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>prev</button>
       <button onClick={()=>{next()}} disabled={nextDisable || isPending}>next</button>
       <div className="status-select">
-        <input type="checkbox" onChange={statusCheck} name="completed" /> completed
-        <input type="checkbox" onChange={statusCheck} name="processing" /> processing
-        <input type="checkbox" onChange={statusCheck} name="posted" /> posted
-        <input type="checkbox" onChange={statusCheck} name="invalid_complaint" /> invalid_complaint
+        {statusValues && statusValues.map((st)=>(
+        <p  key={st}><input type="checkbox" onChange={statusCheck} name={st}/>{st}</p>
+        ))}
       </div>
       <div className="edate-select">
         <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
@@ -180,13 +194,15 @@ const ComplaintsList = () => {
       {isPending && <div>Loading...</div> }
       {error && <div>{error}</div> }
       {!complaints && !isPending && !error && <div>No Data Found</div> }
-      {complaints && complaints.map((complaint)=>(
-        <div className={`complaint-preview link ${complaint.status}`} onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>
-          <p>{complaint._location}</p>
-          <p>{complaint.status}</p>
-          <p> {new Date(complaint.created_time).toLocaleString()}</p>
-        </div>
-      ))}
+      <div className="complaint-list" >
+        {complaints && complaints.map((complaint)=>(
+          <div className={`complaint-preview link ${complaint.status.split(" ").join("-")}`} onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>
+            <p>{complaint._location}</p>
+            <p>{complaint.status}</p>
+            <p> {new Date(complaint.created_time).toLocaleString()}</p>
+          </div>
+        ))}
+      </div>
     </div>
    );
 }

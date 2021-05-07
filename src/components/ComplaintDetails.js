@@ -4,19 +4,37 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const ComplaintDetails = ({setSelectedImg}) => {
+  const statusValues = [
+    "Pending transmission",
+    "Work is pending",
+    "Work in progress",
+    "Work completed",
+    "Closed with due justification"
+  ]
   const {id} = useParams()
   const history = useHistory()
   const {data:complaint,isPending,error} = useFetch(`http://localhost:3000/admin/complaints/${id}`)
   const [status,setStatus] = useState('posted')
   const [remark,setRemark] = useState('')
   const [update,setUpdate] = useState(false)
+  const [eRror,setError] = useState("")
+
   const upDate = async ()=>{
-    await axios.patch(`http://localhost:3000/admin/complaints/${id}`,{
-      status,remark
+    setError('')
+    let dt
+    if(remark!== "" || (complaint.admin_remark && remark !== complaint.admin_remark)){
+      dt = {status,remark}
+    }else{dt = {status}}
+    await axios.patch(`http://localhost:3000/admin/complaints/${id}`,dt).then(()=>{
+      history.replace('/')
+      history.replace(`/complaints/${id}`)
+    }).catch((e)=>{
+      if(e.response.status === 400 && e.response.data){
+        setError(e.response.data)
+      }
     })
-    history.replace('/')
-    history.replace(`/complaints/${id}`)
   }
+  
   useEffect(()=>{
     if(complaint){
       setRemark(complaint.admin_remark ?? "")
@@ -58,16 +76,16 @@ const ComplaintDetails = ({setSelectedImg}) => {
             <p>feedback_remark - {complaint.feedback_remark}</p>
             <p>Waste type - {complaint.waste_type}</p>
             <p>Zone - {complaint.zone}</p>
-            {complaint.status === "completed" && <p>completing time-{new Date(complaint.completed_time).toLocaleString()}</p>}
+            {complaint.status === "Work completed" && <p>completing time-{new Date(complaint.completed_time).toLocaleString()}</p>}
             <p>status - <select id="1" value={status} onChange={changeStatus}>
-                <option value="posted">posted</option>
-                <option value="processing">processing</option>
-                <option value="completed">completed</option>
-                <option value="invalid_complaint">invalid complaint</option>
+                {statusValues && statusValues.map((st) => (
+                  <option value={st} key={st}>{st}</option>
+                ))}
               </select>
             </p>
             <p>remark - <input type="text" name="remark" value={remark} onChange={changeRemark} placeholder={"write remark"}/></p>
             <button onClick={()=>{upDate()} } disabled={!update}>Update</button>
+            <p>{eRror}</p>
           </div>
         }
       </div>}

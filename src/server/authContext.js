@@ -19,11 +19,15 @@ function AuthContextProvider(props) {
           setLoggedIn(false)
         }
       }).catch((e)=>{
-        if(e.response.status === 404){
-          setLoggedIn(true)
-        } else if (e.response.status === 404){
-          console.log('Invalid')
-          setLoggedIn(false)
+        if(e.response){
+          if(e.response.status === 404){
+            setLoggedIn(true)
+          } else if (e.response.status === 400){
+            console.log('Invalid')
+            setLoggedIn(false)
+          }else{
+            setLoggedIn(false)
+          }
         }else{
           setLoggedIn(false)
         }
