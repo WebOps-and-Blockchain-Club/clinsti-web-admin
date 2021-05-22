@@ -53,39 +53,47 @@ const ComplaintDetails = ({setSelectedImg}) => {
   }
 
   return (
-    <div className="complaint-view">
+    <div className="complaint-container">
       {!id && <div>Select a complaint</div> }
-      {id && <div className="complaint-details">
+      {id && <div>
         {error && <div>{error}</div>}
         {isPending && <div>Loading...</div>}
         {complaint &&
-          <div>
-            <h2>{complaint.complaint_id}</h2>
-            {complaint.images && 
-              complaint.images.map((img)=>(
-                <img alt={'img'} style={{padding:5}} width={200} 
-                src={`http://localhost:3000/admin/images/${complaint.user_id}_${img}`}
-                onClick={()=>{setSelectedImg(`http://localhost:3000/admin/images/${complaint.user_id}_${img}`)}} 
-                key={img}></img>
-              ))
-            }
-            <p>Location - {complaint._location}</p>
-            <p>Description - {complaint.description}</p>
-            <p>posting time - {new Date(complaint.created_time).toLocaleString()}</p>
-            <p>feedback_rating - {complaint.feedback_rating}</p>
-            <p>feedback_remark - {complaint.feedback_remark}</p>
-            <p>Waste type - {complaint.waste_type}</p>
-            <p>Zone - {complaint.zone}</p>
-            {complaint.status === "Work completed" && <p>completing time-{new Date(complaint.completed_time).toLocaleString()}</p>}
-            <p>status - <select id="1" value={status} onChange={changeStatus}>
-                {statusValues && statusValues.map((st) => (
-                  <option value={st} key={st}>{st}</option>
+          <div className="comp-2">
+            <h2>Complaint ID: {complaint.complaint_id}</h2>
+            <div></div>
+            <div className="complaint-status">
+              <p>status - <select id="1" value={status} onChange={changeStatus}>
+                  {statusValues && statusValues.map((st) => (
+                    <option value={st} key={st}>{st}</option>
+                  ))}
+                </select>
+              </p>
+              <p>remark - <input type="text" name="remark" value={remark} onChange={changeRemark} placeholder={"write remark"}/></p>
+              <button onClick={()=>{upDate()} } disabled={!update}>Update</button>
+            </div>
+            <div className="complaint-details">
+              <div className="comp-1">
+                <p>Location - {complaint._location}</p>
+                <p>Description - {complaint.description}</p>
+                <p>posting time - {new Date(complaint.created_time).toLocaleString()}</p>
+                <p>feedback_rating - {complaint.feedback_rating}</p>
+                <p>feedback_remark - {complaint.feedback_remark}</p>
+                <p>Waste type - {complaint.waste_type}</p>
+                <p>Zone - {complaint.zone}</p>
+                {complaint.status === "Work completed" && <p>completing time-{new Date(complaint.completed_time).toLocaleString()}</p>}
+                <p>{eRror}</p>
+              </div>
+              <div className="complaint-img">
+                {complaint.images && 
+                complaint.images.map((img)=>(
+                  <img alt={'img'} style={{padding:5}} width={200} 
+                  src={`http://localhost:3000/admin/images/${complaint.user_id}_${img}`}
+                  onClick={()=>{setSelectedImg(`http://localhost:3000/admin/images/${complaint.user_id}_${img}`)}} 
+                  key={img}></img>
                 ))}
-              </select>
-            </p>
-            <p>remark - <input type="text" name="remark" value={remark} onChange={changeRemark} placeholder={"write remark"}/></p>
-            <button onClick={()=>{upDate()} } disabled={!update}>Update</button>
-            <p>{eRror}</p>
+              </div>
+            </div>
           </div>
         }
       </div>}

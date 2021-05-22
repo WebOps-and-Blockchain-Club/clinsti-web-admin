@@ -14,33 +14,31 @@ function Router() {
   const {loggedIn} = useContext(AuthContext);
   return (
     <BrowserRouter>
-      <div className="App">
-        <Navbar/>
-        <div className="content">
-          {!loggedIn && 
-            <Switch>
-              <Route path="/" >
-                <SignIn/>
-              </Route>
-            </Switch>
-          }
-          {loggedIn &&
-            <Switch>
-              <Route path="/complaints/:id">
-                <Complaints/>
-              </Route>
-              <Route path="/complaints">
-                <Complaints/>
-              </Route>
-              <Route exact path="/feedback">
-                <FeedbackList/>
-              </Route>
-              <Route path="/" >
-                <Home/>
-              </Route>
-            </Switch>
-          }
-        </div>
+      <Navbar/>
+      <div className="content">
+        {!loggedIn && 
+          <Switch>
+            <Route path="/" >
+              <SignIn/>
+            </Route>
+          </Switch>
+        }
+        {loggedIn &&
+          <Switch>
+            <Route path="/complaints/:id">
+              <Complaints/>
+            </Route>
+            <Route path="/complaints">
+              <Complaints/>
+            </Route>
+            <Route exact path="/feedback">
+              <FeedbackList/>
+            </Route>
+            <Route path="/" >
+              <Home/>
+            </Route>
+          </Switch>
+        }
       </div>
     </BrowserRouter>
   )

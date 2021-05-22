@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import useFetch from "../server/useFetch";
 
 const FeedbackList = () => {
+
+  const feedbackValues = [
+    "Engineering Unit",
+    "Administration",
+    "App development team"
+]
   
   const [skip,setSkip] = useState(0)
   const [limit,setLimit] = useState(10)
@@ -102,41 +108,48 @@ const FeedbackList = () => {
   }
 
   return (
-    <div className="feedback-list">
-      <div className="sdate-select">
-        <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
-      </div>
-      <div className="type-select">
-        <input type="checkbox" onChange={typeCheck} name="app" /> App Developers
-        <input type="checkbox" onChange={typeCheck} name="Owzone" /> Owzone
-      </div>
-      <select id="1" value={limit} onChange={(e)=>{setLimit(parseInt(e.target.value));reset()}}>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-      </select>
-      <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>prev</button>
-      <button onClick={()=>{next()}} disabled={nextDisable || isPending}>next</button>
-      <div className="edate-select">
-        <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
-      </div>
-      {isPending && <div>Loading ... </div> }
-      {error && <div>{error}</div> }
-      {!isPending && !error && !feedback &&
-        <div>No Feedback yet</div>
-      }
-      {
-        feedback && 
-        feedback.map((fd) =>(
-          <div className="feedback" key={fd.feedback_id}>
-            <span>{fd.feedback_type}</span>
-            <span>{fd.feedback}</span>
-            <span>{new Date(fd.created_time).toLocaleString()}</span>
+    <div className="feedback-page">
+      <div className="filter-options">
+        <div className="date-select">
+          <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
+          <div>--</div>
+          <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
+        </div>
+        <div className="dropdown">
+          <button className="dropbtn">Feedback Type</button>
+          <div className="dropdown-content">
+            {feedbackValues && feedbackValues.map((fb)=>(
+              <p key={fb}><input type="checkbox" onChange={typeCheck} name={fb}/>{fb}</p>
+            ))}
           </div>
-        ))
-      }
+        </div>
+        <select id="1" value={limit} onChange={(e)=>{setLimit(parseInt(e.target.value));reset()}}>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>prev</button>
+        <button onClick={()=>{next()}} disabled={nextDisable || isPending}>next</button>
+      </div>
+      <div className="feedback-list">
+        {isPending && <div>Loading ... </div> }
+        {error && <div>{error}</div> }
+        {!isPending && !error && !feedback &&
+          <div>No Feedback yet</div>
+        }
+        {
+          feedback && 
+          feedback.map((fd) =>(
+            <div className="feedback" key={fd.feedback_id}>
+              <span>{fd.feedback_type}</span>
+              <span>{fd.feedback}</span>
+              <span>{new Date(fd.created_time).toLocaleString()}</span>
+            </div>
+          ))
+        }
+      </div>
     </div>
    );
 }
