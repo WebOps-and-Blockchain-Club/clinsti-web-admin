@@ -94,30 +94,30 @@ export default function FilterComplaints({setFilterQ}) {
   }
   
     return(
-        <div className="filter-options">
-          <div>Filter Complaints</div>
-          <div className="date-select">
+        <div className="top-bar">
+          <div className="complaint-filter">
+            <p>From</p>
             <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
-            <div>--</div>
+            <p>To</p>
             <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
-          </div>
-          <div className="dropdown">
-            <button className="dropbtn">Zone</button>
-            <div className="dropdown-content">
-              {zoneValues && zoneValues.map((zn)=>(
-                <p key={zn}><input type="checkbox" onChange={zoneCheck} name={zn}/>{zn}</p>
-              ))}
+            <div className="dropdown">
+              <button className="filter-button">Filter by Zone &#9662;</button>
+              <div className="dropdown-content">
+                {zoneValues && zoneValues.map((zn)=>(
+                  <p key={zn}><input type="checkbox" onChange={zoneCheck} name={zn}/>{zn}</p>
+                ))}
+              </div>
+            </div>
+            <div className="dropdown">
+              <button className="filter-button">Filter by Status &#9662;</button>
+              <div className="dropdown-content">
+                {statusValues && statusValues.map((st)=>(
+                <p  key={st}><input type="checkbox" onChange={statusCheck} name={st}/>{st}</p>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="dropdown">
-            <button className="dropbtn">Status</button>
-            <div className="dropdown-content">
-              {statusValues && statusValues.map((st)=>(
-              <p  key={st}><input type="checkbox" onChange={statusCheck} name={st}/>{st}</p>
-              ))}
-            </div>
-          </div>
-          <button onClick={()=>{Report()}}>Download Report</button>
+          <button onClick={()=>{Report()}}>&#8681; Download Report</button>
       </div>
     )
 };

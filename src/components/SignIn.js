@@ -26,10 +26,11 @@ const SignIn = () => {
   }
 
   return (
-    <form className="signin-form" onSubmit={signin} style={{display:"flex",flexDirection:"column"}}>
-      <p style={{color:"red"}}>{error}</p>
+    <form className="signin-form" onSubmit={signin}>
+    {/* <form className="signin-form" onSubmit={signin} style={{display:"flex",flexDirection:"column"}}> */}  
       <input onChange={onChange} value={email} type="text" placeholder="email" name="email"/>
       <input onChange={onChange} value={password} type="text" placeholder="password" name="password"/>
+      <p style={{color:"red"}}>{error}</p>
       <button typr ="submit" onClick={signin}>SignIn</button>
     </form>
    );

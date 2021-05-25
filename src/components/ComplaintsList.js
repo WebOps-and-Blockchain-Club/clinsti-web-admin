@@ -73,25 +73,26 @@ const ComplaintsList = ({filterQ}) => {
   return (
     <div className="complaint-list-container">
       <div className="complaint-list" >
-        {isPending && <div>Loading...</div> }
-        {error && <div>{error}</div> }
-        {!complaints && !isPending && !error && <div>No Data Found</div> }
+        {isPending && <div className="loader">Loading...</div> }
+        {error && <div className="loader">{error}</div> }
+        {!complaints && !isPending && !error && <div className="loader">No Data Found</div> }
         {complaints && complaints.map((complaint)=>(
-          <div className={`complaint-preview link ${complaint.status.split(" ").join("-")}`} onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>
+          <div className="complaint-preview link" onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>
+          {/* <div className={`complaint-preview link ${complaint.status.split(" ").join("-")}`} onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>*/}
             <p>{complaint._location}</p>
-            <p>{complaint.status}</p>
+            <h3 className={`${complaint.status.split(" ").join("-")}`}>{complaint.status}</h3>
             <p> {new Date(complaint.created_time).toLocaleString()}</p>
           </div>
         ))}
       </div>
       <div className="bottom-nav">
+        <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>&#10096;</button>
         <select id="1" value={limit} onChange={(e)=>{setLimit(parseInt(e.target.value));reset()}}>
           {limitValues && limitValues.map((v)=>(
             <option value={v} key={v}>{v}</option>
           ))}
         </select>
-        <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>prev</button>
-        <button onClick={()=>{next()}} disabled={nextDisable || isPending}>next</button>
+        <button onClick={()=>{next()}} disabled={nextDisable || isPending}>&#10097;</button>
       </div>
     </div>
    );

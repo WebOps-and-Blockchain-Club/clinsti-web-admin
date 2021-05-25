@@ -109,14 +109,13 @@ const FeedbackList = () => {
 
   return (
     <div className="feedback-page">
-      <div className="filter-options">
-        <div className="date-select">
-          <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
-          <div>--</div>
-          <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
-        </div>
+      <div className="feedback-filter">
+        <div>From</div>
+        <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
+          <div>to</div>
+        <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
         <div className="dropdown">
-          <button className="dropbtn">Feedback Type</button>
+          <button className="dropbtn">Filter by Feedback Type &#9662;</button>
           <div className="dropdown-content">
             {feedbackValues && feedbackValues.map((fb)=>(
               <p key={fb}><input type="checkbox" onChange={typeCheck} name={fb}/>{fb}</p>
@@ -130,14 +129,14 @@ const FeedbackList = () => {
           <option value="50">50</option>
           <option value="100">100</option>
         </select>
-        <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>prev</button>
-        <button onClick={()=>{next()}} disabled={nextDisable || isPending}>next</button>
+        <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>Prev</button>
+        <button onClick={()=>{next()}} disabled={nextDisable || isPending}>Next</button>
       </div>
       <div className="feedback-list">
-        {isPending && <div>Loading ... </div> }
-        {error && <div>{error}</div> }
+        {isPending && <div className="loader">Loading ... </div> }
+        {error && <div className="loader">{error}</div> }
         {!isPending && !error && !feedback &&
-          <div>No Feedback yet</div>
+          <div className="loader">No Feedback yet</div>
         }
         {
           feedback && 

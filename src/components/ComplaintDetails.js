@@ -54,35 +54,51 @@ const ComplaintDetails = ({setSelectedImg}) => {
 
   return (
     <div className="complaint-container">
-      {!id && <div>Select a complaint</div> }
+      {!id && <div className="loader">Select a complaint</div> }
       {id && <div>
-        {error && <div>{error}</div>}
-        {isPending && <div>Loading...</div>}
+        {error && <div className="loader">{error}</div>}
+        {isPending && <div className="loader">Loading...</div>}
         {complaint &&
-          <div className="comp-2">
+          <div className="complaint-cont-2">
             <h2>Complaint ID: {complaint.complaint_id}</h2>
             <div></div>
             <div className="complaint-status">
-              <p>status - <select id="1" value={status} onChange={changeStatus}>
+              <p>Status - <select id="1" value={status} onChange={changeStatus}>
                   {statusValues && statusValues.map((st) => (
                     <option value={st} key={st}>{st}</option>
                   ))}
                 </select>
               </p>
-              <p>remark - <input type="text" name="remark" value={remark} onChange={changeRemark} placeholder={"write remark"}/></p>
-              <button onClick={()=>{upDate()} } disabled={!update}>Update</button>
+              <p>Remark - <textarea type="text" name="remark" value={remark} onChange={changeRemark} placeholder={"write remark"}/></p>
+              <button onClick={()=>{upDate()} } disabled={!update}>Update Status</button>
             </div>
             <div className="complaint-details">
-              <div className="comp-1">
-                <p>Location - {complaint._location}</p>
-                <p>Description - {complaint.description}</p>
-                <p>posting time - {new Date(complaint.created_time).toLocaleString()}</p>
-                <p>feedback_rating - {complaint.feedback_rating}</p>
-                <p>feedback_remark - {complaint.feedback_remark}</p>
-                <p>Waste type - {complaint.waste_type}</p>
-                <p>Zone - {complaint.zone}</p>
-                {complaint.status === "Work completed" && <p>completing time-{new Date(complaint.completed_time).toLocaleString()}</p>}
-                <p>{eRror}</p>
+              <div className="complaint-description">
+                <p>Location</p>
+                <p>{complaint._location}</p>
+                <p>Zone</p>
+                <p>{complaint.zone}</p>
+                <p>Description</p>
+                <p>{complaint.description}</p>
+                <p>Waste Type</p>
+                <p>{complaint.waste_type}</p>
+                <p>Posted Time</p>
+                <p>{new Date(complaint.created_time).toLocaleString()}</p>
+                {complaint.status === "Work completed" && <p>Complaint Solved Time</p>}
+                {complaint.status === "Work completed" && <p>{new Date(complaint.completed_time).toLocaleString()}</p>}
+                {complaint.status === "Closed with due justification" && <p>Complaint Closed Time</p>}
+                {complaint.status === "Closed with due justification" &&  <p>{new Date(complaint.completed_time).toLocaleString()}</p>}
+                {complaint.feedback_rating && <p>Feedback Rating</p>}
+                {complaint.feedback_rating && <p>
+                  {complaint.feedback_rating === 1 && <p>&#9733; &#9734; &#9734; &#9734; &#9734;</p>}
+                  {complaint.feedback_rating === 2 && <p>&#9733; &#9733; &#9734; &#9734; &#9734;</p>}
+                  {complaint.feedback_rating === 3 && <p>&#9733; &#9733; &#9733; &#9734; &#9734;</p>}
+                  {complaint.feedback_rating === 4 && <p>&#9733; &#9733; &#9733; &#9733; &#9734;</p>}
+                  {complaint.feedback_rating === 5 && <p>&#9733; &#9733; &#9733; &#9733; &#9733;</p>}
+                </p>}
+                {complaint.feedback_remark && <p>Feedback Remark</p>}
+                {complaint.feedback_remark && <p>{complaint.feedback_remark}</p>}
+                {eRror && <p>{eRror}</p>}
               </div>
               <div className="complaint-img">
                 {complaint.images && 
