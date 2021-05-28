@@ -21,15 +21,15 @@ export default function FilterComplaints({setFilterQ}) {
     "Closed with due justification"
   ]
 
-  const [zone,setZone] = useState(new Set())
   const [sDate,setSDate] = useState("2021-01-01")
   const [eDate,setEDate] = useState("")
+  const [zone,setZone] = useState(new Set())
   const [status,setStatus] = useState(new Set())
   const [complaintID, setComplaintID] = useState()
 
   const history = useHistory()
-  const click = () =>{
-    console.log(`${complaintID}`)
+  const gotoComplaint = (e) =>{
+    e.preventDefault();
     setComplaintID("")
     history.replace(`/complaints/${complaintID}`)
   }
@@ -42,7 +42,7 @@ export default function FilterComplaints({setFilterQ}) {
     if(status.size) filter += `status=${[...status].join(',')}&`
 
     setFilterQ(filter)
-  },[zone, sDate, eDate, status])
+  },[zone, sDate, eDate, status,setFilterQ])
 
   const zoneCheck = (e) =>{
     if(e.target.checked){
@@ -132,10 +132,10 @@ export default function FilterComplaints({setFilterQ}) {
                 ))}
               </div>
             </div>
-            <div className="id-filter">
+            <form className="id-filter" onSubmit={gotoComplaint} >
               <input type="number" name="complaint_id_filter" value={complaintID} onChange={changeComplaintID} /*onAbort={(e) => click(e.target.value)}*/ placeholder={"Enter Complaint ID"}/>
-              <button onClick={click}><GoSearch className="react-icons"/></button>
-            </div>
+              <button><GoSearch className="react-icons"/></button>
+            </form>
           </div>
           <button onClick={()=>{Report()}}><MdFileDownload className="react-icons"/> Download Report</button>
       </div>

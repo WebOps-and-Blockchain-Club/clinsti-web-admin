@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { GrPrevious, GrNext } from 'react-icons/gr'
 import useFetch from '../server/useFetch';
+import { MdLocationOn } from 'react-icons/md';
 
 const ComplaintsList = ({filterQ}) => {
 
@@ -71,6 +72,15 @@ const ComplaintsList = ({filterQ}) => {
     setSkip(0)
   }
 
+  const getLocation = (loc) =>{
+    try{
+      JSON.parse(loc)
+      return ( <> <MdLocationOn/>Location </>)
+    }catch{
+      return loc;
+    }
+  }
+
   return (
     <div className="complaint-list-container">
       <div className="complaint-list" >
@@ -80,7 +90,7 @@ const ComplaintsList = ({filterQ}) => {
         {complaints && complaints.map((complaint)=>(
           <div className="complaint-preview link" onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>
           {/* <div className={`complaint-preview link ${complaint.status.split(" ").join("-")}`} onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>*/}
-            <p>{complaint._location}</p>
+            <p>{getLocation(complaint._location)}</p>
             <h3 className={`${complaint.status.split(" ").join("-")}`}>{complaint.status}</h3>
             <p> {new Date(complaint.created_time).toLocaleString()}</p>
           </div>

@@ -3,6 +3,7 @@ import useFetch from '../server/useFetch';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast } from "react-toastify";
+import {MdLocationOn} from "react-icons/md"
 import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure()
@@ -56,6 +57,29 @@ const ComplaintDetails = ({setSelectedImg}) => {
     setUpdate(true)
   }
 
+  const getLocation = (loc) =>{
+    try{
+      console.log(loc)
+      var obj = JSON.parse(loc)
+      console.log(obj)
+      return(
+        // <iframe
+        //   width="450"
+        //   height="250"
+        //   target="_blank" rel="noopener noreferrer"
+        //   frameborder="0"
+        //   src={`https://www.google.com/maps/embed/v1/MAP_MODE?key=5Y5FL-TBvIX7hb3cyYdxmO9w8YQ&q=${obj.Latitude},${obj.Longitude}`} allowfullscreen>
+        // </iframe>
+          <a href={`https://www.google.com/maps/search/?api=1&query=${obj.Latitude},${obj.Longitude}`} target="_blank" rel="noopener noreferrer">
+            <MdLocationOn/>Location
+          </a>
+      )
+    }catch(e){
+      console.log(e);
+      return loc;
+    }
+  }
+
   return (
     <div className="complaint-container">
       {!id && <div className="loader">Select a complaint</div> }
@@ -79,7 +103,7 @@ const ComplaintDetails = ({setSelectedImg}) => {
             <div className="complaint-details">
               <div className="complaint-description">
                 <p>Location</p>
-                <p>{complaint._location}</p>
+                <p>{getLocation(complaint._location)}</p>
                 <p>Zone</p>
                 <p>{complaint.zone}</p>
                 <p>Description</p>

@@ -11,7 +11,7 @@ body {
   margin: 0;
   padding: 0;
   height: 97vh;
-  font-family: "Quicksand";
+  font-family:sans-serif;
   background-color: #fff;
   position: relative;
 }
@@ -23,13 +23,14 @@ body {
 }
 
 button {
-  background-color: #e3afbc;
+  background-color: #cfcfcf;
   color: #5d001e;
   height: 30px;
   padding: 5px 15px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  box-shadow: 1px 1px 1px 1px black;
   font-size: 14px;
   border: none;
   border-radius: 10px;
@@ -39,12 +40,14 @@ button {
 button:hover {
   /* box-shadow: 0 12px 16px 0 rgba(197, 21, 21, 0.24), 0 17px 50px 0 rgba(218, 15, 15, 0.19); */
   cursor: pointer;
-  background-color: #ee4c72;
+  color:rgb(255, 255, 255);
+  background-color: #ff0000;
 }
 
 select{
   border: none;
-  background-color: #e3afbc;
+  background-color: #ffffff;
+  box-shadow: 1px 1px 1px 1px black;
   color: #5d001e;
 }
 
@@ -52,7 +55,8 @@ textarea {
   border: none;
   padding: 5px;
   margin: 5px;
-  background-color: #e3afbc;
+  background-color: #ffffff;
+  box-shadow: 1px 1px 1px 1px black;
   color: #5d001e;
 }
 
@@ -72,10 +76,10 @@ textarea::placeholder {
   padding: 5px;
   display: flex;
   z-index: 1000;
-  background-color: #e3e2df;
+  background-color: #d1d1d1;
   align-items: center;
   margin: 0 auto;
-  border-bottom: 1px solid #e3e2df;
+  border-bottom: 1px solid #999999;
   /* box-shadow: 0 8px 16px 0 rgba(140, 186, 207, 0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
 }
 .navbar h1 {
@@ -167,7 +171,8 @@ textarea::placeholder {
   display: inline-block;
   font-size: 14px;
   background-color: #e3e2df;
-  border: 2px solid #e3afbc;
+  border: 2px solid #6e6e6e;
+  
 }
 
 .dropdown {
@@ -177,12 +182,12 @@ textarea::placeholder {
 }
 
 .dropdown button{
-  border: 2px solid #e3afbc;
+  border: 2px solid #a1a1a1;
 }
 
 .dropdown button:hover{
-  border: 2px solid #e3afbc;
-  background-color: #e3e2df;
+  border: 2px solid #4b4b4b;
+  background-color: #a3a3a3;
 }
 
 .dropdown-content {
@@ -266,8 +271,11 @@ textarea::placeholder {
   margin: 20px 10px 20px 20px;
   position: relative;
   display: flex;
-  background-color: #e3e2df;
-  border-radius: 10px;
+  background-color: #eeeeee;
+  border-radius: 5px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid #cccccc;
+  box-shadow: 1px 3px 5px  rgba(0,0,0,0.1);
   overflow-y: auto;
 }
 
@@ -281,7 +289,9 @@ textarea::placeholder {
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: #e3afbc;
+  background-color: #b9b9b9;
+  border-bottom: 1px solid rgb(170, 170, 170);
+  box-shadow: 1px 1px 1px rgba(0,0,0,0.1);
   color: #5d001e;
 }
 
@@ -335,11 +345,9 @@ textarea::placeholder {
 .complaint-preview {
   border-radius: 5px;
   padding: 10px 16px;
-  border-bottom: 1px solid #fafafa;
-  background-color: #e3afbc;
-}
-.complaint-preview:hover {
-  background-color: #ee4c72;
+  border-bottom: 1px solid #777777;
+  border-right: 1px solid #777777;
+  background-color: rgb(255, 255, 255);
   box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
 }
 .complaint-preview h2 {
@@ -350,6 +358,14 @@ textarea::placeholder {
 .complaint-preview p {
   font-weight: bold;
   color: #5d001e;
+}
+.complaint-preview:hover{
+  background-color: #ee4c72;
+  box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+}
+
+.complaint-preview:hover > p{
+  color:rgb(0, 0, 0)
 }
 
 .Pending-transmission {
@@ -421,8 +437,8 @@ textarea::placeholder {
 }
 
 .feedback-filter input {
-  background-color: #e3e2df;
-  border: 2px solid #e3afbc;
+  background-color: #8f8f8f;
+  border: 2px solid #7e7e7e;
   height: 25px;
 }
 
