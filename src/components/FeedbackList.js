@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BiChevronDown } from 'react-icons/bi';
 import useFetch from "../server/useFetch";
 
 const FeedbackList = () => {
@@ -115,7 +116,7 @@ const FeedbackList = () => {
           <div>to</div>
         <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
         <div className="dropdown">
-          <button className="dropbtn">Filter by Feedback Type &#9662;</button>
+          <button className="dropbtn">Filter by Feedback Type  <BiChevronDown className="react-icons"/></button>
           <div className="dropdown-content">
             {feedbackValues && feedbackValues.map((fb)=>(
               <p key={fb}><input type="checkbox" onChange={typeCheck} name={fb}/>{fb}</p>

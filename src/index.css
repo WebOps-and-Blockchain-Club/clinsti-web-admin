@@ -23,8 +23,8 @@ body {
 }
 
 button {
-  background-color: #8f39ff;
-  color: #fff;
+  background-color: #e3afbc;
+  color: #5d001e;
   height: 30px;
   padding: 5px 15px;
   text-align: center;
@@ -39,24 +39,29 @@ button {
 button:hover {
   /* box-shadow: 0 12px 16px 0 rgba(197, 21, 21, 0.24), 0 17px 50px 0 rgba(218, 15, 15, 0.19); */
   cursor: pointer;
+  background-color: #ee4c72;
 }
 
 select{
   border: none;
-  background-color: #8f39ff;
-  color: #fff;
+  background-color: #e3afbc;
+  color: #5d001e;
 }
 
 textarea {
   border: none;
   padding: 5px;
   margin: 5px;
-  background-color: #8f39ff;
-  color: #fff;
+  background-color: #e3afbc;
+  color: #5d001e;
 }
 
 textarea::placeholder {
-    color: #fff;
+    color: #333;
+}
+
+.react-icons {
+  vertical-align: middle;
 }
 
 .navbar {
@@ -67,10 +72,10 @@ textarea::placeholder {
   padding: 5px;
   display: flex;
   z-index: 1000;
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
   align-items: center;
   margin: 0 auto;
-  border-bottom: 1px solid #fdb9fd;
+  border-bottom: 1px solid #e3e2df;
   /* box-shadow: 0 8px 16px 0 rgba(140, 186, 207, 0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
 }
 .navbar h1 {
@@ -85,7 +90,7 @@ textarea::placeholder {
   padding: 6px;
 }
 .navbar .link:hover {
-  color: #8f39ff;
+  color: #ee4c72;
 }
 .link:hover{
   cursor: pointer;
@@ -108,8 +113,9 @@ textarea::placeholder {
 
 .top-bar {
   padding: 5px;
-  width: 95%;
   top: 55px;
+  left: 5px;
+  right: 5px;
   height: 30px;
   position: fixed;
   display: flex;
@@ -119,21 +125,30 @@ textarea::placeholder {
 }
 
 .complaint-filter{
-  margin-left: 20px;
+  /* margin-left: 10px; */
   display: flex;
   align-items: stretch;
+  justify-content: space-evenly;
   border-radius: 10px;
-  padding: 5px 30px;
+  padding: 5px 10px;
+}
+
+.id-filter{
+  display: flex;
+}
+
+.id-filter button{
+  border-radius: 0;
 }
 
 .complaint-filter p{
   padding: 5px;
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
 }
 
 .filter-button{
   height: 30px;
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
   color: #333;
   border-radius: 0;
 }
@@ -151,8 +166,8 @@ textarea::placeholder {
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  background-color: #fdb9fd;
-  border: 2px solid #8f39ff;
+  background-color: #e3e2df;
+  border: 2px solid #e3afbc;
 }
 
 .dropdown {
@@ -162,22 +177,27 @@ textarea::placeholder {
 }
 
 .dropdown button{
-  border: 2px solid #8f39ff;
+  border: 2px solid #e3afbc;
+}
+
+.dropdown button:hover{
+  border: 2px solid #e3afbc;
+  background-color: #e3e2df;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
   width: 230px;
   padding-bottom: 5px;
   padding-left: 10px;
   padding-right: 10px;
-  border: 2px solid #8f39ff;
+  border: 2px solid #e3afbc;
 }
 
 .dropdown-content p {
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
   padding-top: 5px;
   display: flex;
   align-items: center;
@@ -198,7 +218,7 @@ textarea::placeholder {
 }
 
 .complaint-list-container {
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
   border-radius: 10px;
   margin: 20px 0px 20px 20px;
   position: relative;
@@ -243,10 +263,10 @@ textarea::placeholder {
 .complaint-container {
   width: calc(100vw - 300px);
   height: calc(100vh - 130px);
-  margin: 20px;
+  margin: 20px 10px 20px 20px;
   position: relative;
   display: flex;
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
   border-radius: 10px;
   overflow-y: auto;
 }
@@ -261,8 +281,8 @@ textarea::placeholder {
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: #8f39ff;
-  color: #fff;
+  background-color: #e3afbc;
+  color: #5d001e;
 }
 
 .complaint-cont-2 p{
@@ -303,7 +323,7 @@ textarea::placeholder {
 .complaint-description p{
   margin: 2px;
   padding: 4px;
-  /* background-color: #8f39ff; */
+  /* background-color: #e3afbc; */
   display: inline;
 }
 
@@ -316,9 +336,10 @@ textarea::placeholder {
   border-radius: 5px;
   padding: 10px 16px;
   border-bottom: 1px solid #fafafa;
-  background-color: #b7b6e7;
+  background-color: #e3afbc;
 }
 .complaint-preview:hover {
+  background-color: #ee4c72;
   box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
 }
 .complaint-preview h2 {
@@ -328,6 +349,7 @@ textarea::placeholder {
 }
 .complaint-preview p {
   font-weight: bold;
+  color: #5d001e;
 }
 
 .Pending-transmission {
@@ -388,7 +410,7 @@ textarea::placeholder {
 }
 
 .feedback-filter button {
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
   border-radius: 0;
   height: 30px;
   color: #333;
@@ -399,19 +421,19 @@ textarea::placeholder {
 }
 
 .feedback-filter input {
-  background-color: #fdb9fd;
-  border: 2px solid #8f39ff;
+  background-color: #e3e2df;
+  border: 2px solid #e3afbc;
   height: 25px;
 }
 
 .feedback-filter select{
   height: 30px;
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
   color: #333;
 }
 
 .feedback {
-  background-color: #fdb9fd;
+  background-color: #e3e2df;
   margin: 3px;
   border-radius: 5px;
   padding: 10px 16px;
@@ -464,6 +486,7 @@ textarea::placeholder {
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.5);
+  z-index: 1001;
 }
 .backdrop img{
   display: block;

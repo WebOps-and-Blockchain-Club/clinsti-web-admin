@@ -1,5 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import { GoSearch } from 'react-icons/go';
+import { MdFileDownload } from 'react-icons/md';
+import { BiChevronDown } from 'react-icons/bi';
 const fileDownload = require('js-file-download')
 
 export default function FilterComplaints({setFilterQ}) {
@@ -21,6 +25,14 @@ export default function FilterComplaints({setFilterQ}) {
   const [sDate,setSDate] = useState("2021-01-01")
   const [eDate,setEDate] = useState("")
   const [status,setStatus] = useState(new Set())
+  const [complaintID, setComplaintID] = useState()
+
+  const history = useHistory()
+  const click = () =>{
+    console.log(`${complaintID}`)
+    setComplaintID("")
+    history.replace(`/complaints/${complaintID}`)
+  }
 
   useEffect(() => {
     let filter = ''
@@ -72,6 +84,10 @@ export default function FilterComplaints({setFilterQ}) {
     }
   }
 
+  const changeComplaintID = (e) =>{
+    setComplaintID(e.target.value)
+  }
+
   const Report = () =>{
     let link = 'http://localhost:3000/admin/report?'
     if(sDate){
@@ -101,7 +117,7 @@ export default function FilterComplaints({setFilterQ}) {
             <p>To</p>
             <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
             <div className="dropdown">
-              <button className="filter-button">Filter by Zone &#9662;</button>
+              <button className="filter-button">Filter by Zone <BiChevronDown className="react-icons"/></button>
               <div className="dropdown-content">
                 {zoneValues && zoneValues.map((zn)=>(
                   <p key={zn}><input type="checkbox" onChange={zoneCheck} name={zn}/>{zn}</p>
@@ -109,15 +125,19 @@ export default function FilterComplaints({setFilterQ}) {
               </div>
             </div>
             <div className="dropdown">
-              <button className="filter-button">Filter by Status &#9662;</button>
+              <button className="filter-button">Filter by Status <BiChevronDown className="react-icons"/></button>
               <div className="dropdown-content">
                 {statusValues && statusValues.map((st)=>(
                 <p  key={st}><input type="checkbox" onChange={statusCheck} name={st}/>{st}</p>
                 ))}
               </div>
             </div>
+            <div className="id-filter">
+              <input type="number" name="complaint_id_filter" value={complaintID} onChange={changeComplaintID} /*onAbort={(e) => click(e.target.value)}*/ placeholder={"Enter Complaint ID"}/>
+              <button onClick={click}><GoSearch className="react-icons"/></button>
+            </div>
           </div>
-          <button onClick={()=>{Report()}}>&#8681; Download Report</button>
+          <button onClick={()=>{Report()}}><MdFileDownload className="react-icons"/> Download Report</button>
       </div>
     )
 };

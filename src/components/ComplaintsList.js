@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+import { GrPrevious, GrNext } from 'react-icons/gr'
 import useFetch from '../server/useFetch';
 
 const ComplaintsList = ({filterQ}) => {
@@ -86,13 +87,13 @@ const ComplaintsList = ({filterQ}) => {
         ))}
       </div>
       <div className="bottom-nav">
-        <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>&#10096;</button>
+        <button onClick={()=>{previous()}} disabled={prevDisable || isPending}><GrPrevious className='react-icons'/></button>
         <select id="1" value={limit} onChange={(e)=>{setLimit(parseInt(e.target.value));reset()}}>
           {limitValues && limitValues.map((v)=>(
             <option value={v} key={v}>{v}</option>
           ))}
         </select>
-        <button onClick={()=>{next()}} disabled={nextDisable || isPending}>&#10097;</button>
+        <button onClick={()=>{next()}} disabled={nextDisable || isPending}><GrNext className='react-icons'/></button>
       </div>
     </div>
    );

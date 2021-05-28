@@ -2,7 +2,10 @@ import { useHistory, useParams } from 'react-router';
 import useFetch from '../server/useFetch';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure()
 const ComplaintDetails = ({setSelectedImg}) => {
   const statusValues = [
     "Pending transmission",
@@ -28,6 +31,7 @@ const ComplaintDetails = ({setSelectedImg}) => {
     await axios.patch(`http://localhost:3000/admin/complaints/${id}`,dt).then(()=>{
       history.replace('/')
       history.replace(`/complaints/${id}`)
+      toast("Complaint Status Updated")
     }).catch((e)=>{
       if(e.response.status === 400 && e.response.data){
         setError(e.response.data)
