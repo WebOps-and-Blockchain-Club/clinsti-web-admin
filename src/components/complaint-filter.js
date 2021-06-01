@@ -112,10 +112,12 @@ export default function FilterComplaints({setFilterQ}) {
     return(
         <div className="top-bar">
           <div className="complaint-filter">
-            <p>From</p>
-            <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
-            <p>To</p>
-            <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
+            <div className="date-select">
+              <p>From</p>
+              <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
+              <p>To</p>
+              <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
+            </div>
             <div className="dropdown">
               <button className="filter-button">Filter by Zone <BiChevronDown className="react-icons"/></button>
               <div className="dropdown-content">

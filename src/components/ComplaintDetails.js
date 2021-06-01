@@ -91,13 +91,18 @@ const ComplaintDetails = ({setSelectedImg}) => {
             <h2>Complaint ID: {complaint.complaint_id}</h2>
             <div></div>
             <div className="complaint-status">
-              <p>Status - <select id="1" value={status} onChange={changeStatus}>
-                  {statusValues && statusValues.map((st) => (
-                    <option value={st} key={st}>{st}</option>
-                  ))}
+              <div>
+                <p>Status</p>
+                <select id="1" value={status} onChange={changeStatus}>
+                    {statusValues && statusValues.map((st) => (
+                      <option value={st} key={st}>{st}</option>
+                    ))}
                 </select>
-              </p>
-              <p>Remark - <textarea type="text" name="remark" value={remark} onChange={changeRemark} placeholder={"write remark"}/></p>
+              </div>
+              <div>
+                <p>Remark</p>
+                <textarea type="text" name="remark" value={remark} onChange={changeRemark} placeholder={"write remark"}/>
+              </div>
               <button onClick={()=>{upDate()} } disabled={!update}>Update Status</button>
             </div>
             <div className="complaint-details">
