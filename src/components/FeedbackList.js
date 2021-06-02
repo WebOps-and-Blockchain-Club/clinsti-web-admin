@@ -111,10 +111,12 @@ const FeedbackList = () => {
   return (
     <div className="feedback-page">
       <div className="feedback-filter">
-        <div>From</div>
-        <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
+        <div className="feedback-filter-date">
+          <div>From</div>
+          <input type="date" onChange={dateCheck} name="sDate" value={sDate}/>
           <div>to</div>
-        <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
+          <input type="date" onChange={dateCheck} name="eDate" value={eDate}/>
+        </div>
         <div className="dropdown">
           <button className="dropbtn">Filter by Feedback Type  <BiChevronDown className="react-icons"/></button>
           <div className="dropdown-content">
@@ -123,15 +125,17 @@ const FeedbackList = () => {
             ))}
           </div>
         </div>
-        <select id="1" value={limit} onChange={(e)=>{setLimit(parseInt(e.target.value));reset()}}>
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </select>
-        <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>Prev</button>
-        <button onClick={()=>{next()}} disabled={nextDisable || isPending}>Next</button>
+        <div className="feedback-pagination-bar">
+          <select id="1" value={limit} onChange={(e)=>{setLimit(parseInt(e.target.value));reset()}}>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+          <button onClick={()=>{previous()}} disabled={prevDisable || isPending}>Prev</button>
+          <button onClick={()=>{next()}} disabled={nextDisable || isPending}>Next</button>
+        </div>
       </div>
       <div className="feedback-list">
         {isPending && <div className="loader">Loading ... </div> }

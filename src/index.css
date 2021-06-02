@@ -110,6 +110,11 @@ textarea::placeholder {
   justify-items: flex-start;
 }
 
+.home{
+  position: relative;
+  top: 40px;
+}
+
 .complaints-page {
   position: relative;
   display: flex;
@@ -412,10 +417,12 @@ textarea::placeholder {
 }
 
 .feedback-page {
-  position: absolute;
-  height: 100%;
+  top: 50px;
+  position: relative;
+  height: calc(100vh - 50px);
   width: 100%;
-  overflow: auto;
+  display: block;
+  justify-items: center;
 }
 
 .feedback-list {
@@ -428,15 +435,21 @@ textarea::placeholder {
 }
 
 .feedback-filter{
-  padding: 5px;
-  left: 50px;
-  right: 150px;
+  padding: 10px;
+  width: fit-content;
+  left: 50%;
+  transform: translateX(-50%);
   height: 30px;
   position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
+}
+
+.feedback-filter-date, .feedback-pagination-bar{
+  display: flex;
+  align-items: center;
 }
 
 .feedback-filter button {
@@ -588,6 +601,22 @@ textarea::placeholder {
 
 }
 
+@media screen and (max-width: 750px) {
+  .feedback-filter {
+    height: 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+  .feedback-filter-date {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+  .feedback-list {
+    top: 80px;
+  }
+}
+
 @media screen and (max-height: 450px) {
   .top-bar {
     position: absolute;
@@ -636,6 +665,16 @@ textarea::placeholder {
     width: calc(100vw - 50px);
     height: fit-content;
   }
+
+  .split-container-1-1 > div{
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .feedback {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
   
 }
 
@@ -658,6 +697,17 @@ textarea::placeholder {
     top: 205px;
   }
 
+}
+
+@media screen and (max-width: 500px) {
+  .feedback-filter{
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+  }
+  .feedback-list{
+    top: 120px;
+  }
 }
 
 @media screen and (max-width: 400px){
@@ -683,4 +733,17 @@ textarea::placeholder {
     grid-column-end: 5;
   }
   
+}
+
+@media screen and (max-width: 350px) {
+  .feedback-filter{
+    height: 130px;
+  }
+  .feedback-filter-date {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+  }
+  .feedback-list {
+    top: 150px;
+  }
 }
