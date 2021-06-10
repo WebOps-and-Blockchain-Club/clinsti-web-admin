@@ -5,7 +5,7 @@ const useFetch = (url,r) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
-  const baseLink = "http://localhost:3000"
+  const baseLink = process.env.PORT || "http://localhost:3000"
 
   useEffect(() => {
     if(!url){return}
@@ -42,7 +42,7 @@ const useFetch = (url,r) => {
 
     // abort the fetch
     return () => source.cancel();
-  }, [url,r])
+  }, [url,r,baseLink])
 
   return { data, isPending, error };
 }
