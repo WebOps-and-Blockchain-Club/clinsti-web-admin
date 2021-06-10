@@ -5,15 +5,15 @@ const AuthContext = React.createContext();
 
 function AuthContextProvider(props) {
     const [loggedIn, setLoggedIn] = useState(false);
+    const baseLink = "http://localhost:3000"
 
     async function getLoggedIn(){
-      await axios.get("http://localhost:3000/admin/complaints/1").then((res)=>{
+      await axios.get(`${baseLink}/admin/complaints/1`).then((res)=>{
         if(res.status === 200){
           setLoggedIn(true)
         }else if(res.status === 404){
           setLoggedIn(true)
         } else if (res.status === 404){
-          console.log('Invalid')
           setLoggedIn(false)
         }else{
           setLoggedIn(false)
@@ -23,7 +23,6 @@ function AuthContextProvider(props) {
           if(e.response.status === 404){
             setLoggedIn(true)
           } else if (e.response.status === 400){
-            console.log('Invalid')
             setLoggedIn(false)
           }else{
             setLoggedIn(false)
@@ -35,7 +34,7 @@ function AuthContextProvider(props) {
     }
 
     async function signIn({email,password}){
-      await axios.post('http://localhost:3000/admin',{
+      await axios.post(`${baseLink}/admin`,{
         email,password
       }).then((v)=>{
         setLoggedIn(true)
@@ -46,7 +45,7 @@ function AuthContextProvider(props) {
     }
 
     async function signOut(){
-      await axios.delete('http://localhost:3000/admin').catch()
+      await axios.delete(`${baseLink}/admin`).catch()
       setLoggedIn(false)
     }
     

@@ -37,12 +37,29 @@ button {
   /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); */
 }
 
+button:disabled,
+button[disabled]{
+  border: 1px solid #3a3a3a;
+  background-color: #3a3a3a;
+  color: #3a3a3a;
+}
+
 button:hover {
   /* box-shadow: 0 12px 16px 0 rgba(197, 21, 21, 0.24), 0 17px 50px 0 rgba(218, 15, 15, 0.19); */
   cursor: pointer;
   color:rgb(255, 255, 255);
   background-color: #ff0000;
 }
+
+
+button:disabled,
+button[disabled],button:disabled:hover{
+  border: 1px solid #555555;
+  background-color: #555555;
+  cursor: default;
+  color: #aaaaaa;
+}
+
 
 select{
   border: none;

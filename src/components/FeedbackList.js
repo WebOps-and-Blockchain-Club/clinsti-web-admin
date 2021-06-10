@@ -17,11 +17,12 @@ const FeedbackList = () => {
   const [eDate,setEDate] = useState("")
   const [nextDisable,setNextDisable] = useState(false)
   const [prevDisable,setPrevDisable] = useState(true)
+  const [max,setMax] = useState(0);
   
   const [fLink,setFlink] = useState()
   const {data:feedback,isPending,error} = useFetch(fLink)
   useEffect(()=>{
-    let link = 'http://localhost:3000/admin/feedback?'
+    let link = '/admin/feedback?'
     if(skip){
       link +=  `skip=${skip}&`
     }
@@ -40,41 +41,36 @@ const FeedbackList = () => {
     setFlink(link)
   },[skip,limit,type,sDate,eDate])
 
+
+  useEffect(()=>{
+    if(feedback && feedback.feedbacksCount){
+      setMax(feedback.feedbacksCount)
+    }
+  },[feedback])
+
+  useEffect(()=>{
+    if(max <= skip+limit){
+      setNextDisable(true)
+    }else{setNextDisable(false)}
+    if(skip === 0){
+      setPrevDisable(true)
+    }else{setPrevDisable(false)}
+  },[max,limit,skip])
   
   const next = () =>{
     setSkip(skip+limit)
     setPrevDisable(false)
   }
+
   const previous = () => {
-    setNextDisable(false)
     if (skip > limit){
       setSkip(skip-limit)
     }else if(skip >= 0){
       setSkip(0)
-      setPrevDisable(true)
     }
   }
-
-  useEffect(()=>{
-    if(error === 'No Data Found'){
-      if(skip > limit){
-        setSkip(skip-limit)
-        setNextDisable(true)
-      }else if(skip >= 0){
-        setSkip(0)
-        setNextDisable(true)
-        setPrevDisable(true)
-      }if(skip < 0){
-        setSkip(0)
-        setPrevDisable(true)
-      }
-    }
-  },[error,skip,limit])
-
   
-  const reset = () =>{
-    setPrevDisable(true)
-    setNextDisable(false)
+  const reset = () => {
     setSkip(0)
   }
 
@@ -144,8 +140,8 @@ const FeedbackList = () => {
           <div className="loader">No Feedback yet</div>
         }
         {
-          feedback && 
-          feedback.map((fd) =>(
+          feedback && feedback.feedbacks &&
+          feedback.feedbacks.map((fd) =>(
             <div className="feedback" key={fd.feedback_id}>
               <span>{fd.feedback_type}</span>
               <span>{fd.feedback}</span>

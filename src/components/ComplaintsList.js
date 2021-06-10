@@ -14,6 +14,7 @@ const ComplaintsList = ({filterQ}) => {
   }
   const [skip,setSkip] = useState(0)
   const [limit,setLimit] = useState(10)
+  const [max,setMax] = useState(0)
 
   const [nextDisable,setNextDisable] = useState(false)
   const [prevDisable,setPrevDisable] = useState(true)
@@ -25,31 +26,25 @@ const ComplaintsList = ({filterQ}) => {
   },[filterQ])
 
   useEffect(()=>{
-    let link = `http://localhost:3000/admin/complaints?${filterQ}skip=${skip}&limit=${limit}&`
+    let link = `/admin/complaints?${filterQ}skip=${skip}&limit=${limit}&`
     setFlink(link)
   },[filterQ, skip, limit])
-  
-  useEffect(()=>{
-    if(error === 'No Data Found'){
-      if(skip > limit){
-        setSkip(skip-limit)
-        setNextDisable(true)
-      }else if(skip >= 0){
-        setSkip(0)
-        setNextDisable(true)
-        setPrevDisable(true)
-      }if(skip < 0){
-        setSkip(0)
-        setPrevDisable(true)
-      }
-    }
-  },[error,skip,limit])
 
   useEffect(()=>{
-    if(complaints && complaints.length < limit){
-      setNextDisable(true)
+    if(complaints && complaints.complaintsCount){
+      setMax(complaints.complaintsCount)
     }
-  },[complaints,limit])
+  },[complaints])
+
+  useEffect(()=>{
+    if(max <= skip+limit){
+      setNextDisable(true)
+    }else{setNextDisable(false)}
+    if(skip === 0){
+      setPrevDisable(true)
+    }else{setPrevDisable(false)}
+  },[max,limit,skip])
+
 
   const next = () =>{
     setSkip(skip+limit)
@@ -57,18 +52,14 @@ const ComplaintsList = ({filterQ}) => {
   }
 
   const previous = () => {
-    setNextDisable(false)
     if (skip > limit){
       setSkip(skip-limit)
     }else if(skip >= 0){
       setSkip(0)
-      setPrevDisable(true)
     }
   }
   
   const reset = () => {
-    setPrevDisable(true)
-    setNextDisable(false)
     setSkip(0)
   }
 
@@ -87,7 +78,8 @@ const ComplaintsList = ({filterQ}) => {
         {isPending && <div className="loader">Loading...</div> }
         {error && <div className="loader">{error}</div> }
         {!complaints && !isPending && !error && <div className="loader">No Data Found</div> }
-        {complaints && complaints.map((complaint)=>(
+        {complaints && complaints.complaints &&
+          complaints.complaints.map((complaint)=>(
           <div className="complaint-preview link" onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>
           {/* <div className={`complaint-preview link ${complaint.status.split(" ").join("-")}`} onClick={()=>{click(complaint.complaint_id)}} key={complaint.complaint_id}>*/}
             <p>{getLocation(complaint._location)}</p>

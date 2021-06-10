@@ -7,6 +7,8 @@ import {MdLocationOn} from "react-icons/md"
 import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure()
+const baseLink = "http://localhost:3000"
+
 const ComplaintDetails = ({setSelectedImg}) => {
   const statusValues = [
     "Pending transmission",
@@ -17,7 +19,7 @@ const ComplaintDetails = ({setSelectedImg}) => {
   ]
   const {id} = useParams()
   const history = useHistory()
-  const {data:complaint,isPending,error} = useFetch(`http://localhost:3000/admin/complaints/${id}`)
+  const {data:complaint,isPending,error} = useFetch(`/admin/complaints/${id}`)
   const [status,setStatus] = useState('posted')
   const [remark,setRemark] = useState('')
   const [update,setUpdate] = useState(false)
@@ -29,7 +31,7 @@ const ComplaintDetails = ({setSelectedImg}) => {
     if(remark!== "" || (complaint.admin_remark && remark !== complaint.admin_remark)){
       dt = {status,remark}
     }else{dt = {status}}
-    await axios.patch(`http://localhost:3000/admin/complaints/${id}`,dt).then(()=>{
+    await axios.patch(`${baseLink}/admin/complaints/${id}`,dt).then(()=>{
       history.replace('/')
       history.replace(`/complaints/${id}`)
       toast("Complaint Status Updated")
@@ -59,23 +61,13 @@ const ComplaintDetails = ({setSelectedImg}) => {
 
   const getLocation = (loc) =>{
     try{
-      console.log(loc)
       var obj = JSON.parse(loc)
-      console.log(obj)
       return(
-        // <iframe
-        //   width="450"
-        //   height="250"
-        //   target="_blank" rel="noopener noreferrer"
-        //   frameborder="0"
-        //   src={`https://www.google.com/maps/embed/v1/MAP_MODE?key=5Y5FL-TBvIX7hb3cyYdxmO9w8YQ&q=${obj.Latitude},${obj.Longitude}`} allowfullscreen>
-        // </iframe>
           <a href={`https://www.google.com/maps/search/?api=1&query=${obj.Latitude},${obj.Longitude}`} target="_blank" rel="noopener noreferrer">
             <MdLocationOn/>Location
           </a>
       )
     }catch(e){
-      console.log(e);
       return loc;
     }
   }
@@ -123,11 +115,11 @@ const ComplaintDetails = ({setSelectedImg}) => {
                 {complaint.status === "Closed with due justification" &&  <p>{new Date(complaint.completed_time).toLocaleString()}</p>}
                 {complaint.feedback_rating && <p>Feedback Rating</p>}
                 {complaint.feedback_rating && <p>
-                  {complaint.feedback_rating === 1 && <p>&#9733; &#9734; &#9734; &#9734; &#9734;</p>}
-                  {complaint.feedback_rating === 2 && <p>&#9733; &#9733; &#9734; &#9734; &#9734;</p>}
-                  {complaint.feedback_rating === 3 && <p>&#9733; &#9733; &#9733; &#9734; &#9734;</p>}
-                  {complaint.feedback_rating === 4 && <p>&#9733; &#9733; &#9733; &#9733; &#9734;</p>}
-                  {complaint.feedback_rating === 5 && <p>&#9733; &#9733; &#9733; &#9733; &#9733;</p>}
+                  {complaint.feedback_rating === 1 && <span>&#9733; &#9734; &#9734; &#9734; &#9734;</span>}
+                  {complaint.feedback_rating === 2 && <span>&#9733; &#9733; &#9734; &#9734; &#9734;</span>}
+                  {complaint.feedback_rating === 3 && <span>&#9733; &#9733; &#9733; &#9734; &#9734;</span>}
+                  {complaint.feedback_rating === 4 && <span>&#9733; &#9733; &#9733; &#9733; &#9734;</span>}
+                  {complaint.feedback_rating === 5 && <span>&#9733; &#9733; &#9733; &#9733; &#9733;</span>}
                 </p>}
                 {complaint.feedback_remark && <p>Feedback Remark</p>}
                 {complaint.feedback_remark && <p>{complaint.feedback_remark}</p>}
@@ -137,8 +129,8 @@ const ComplaintDetails = ({setSelectedImg}) => {
                 {complaint.images && 
                 complaint.images.map((img)=>(
                   <img alt={'img'} style={{padding:5}} width={200} 
-                  src={`http://localhost:3000/admin/images/${complaint.user_id}_${img}`}
-                  onClick={()=>{setSelectedImg(`http://localhost:3000/admin/images/${complaint.user_id}_${img}`)}} 
+                  src={`${baseLink}/admin/images/${complaint.user_id}_${img}`}
+                  onClick={()=>{setSelectedImg(`${baseLink}/admin/images/${complaint.user_id}_${img}`)}} 
                   key={img}></img>
                 ))}
               </div>

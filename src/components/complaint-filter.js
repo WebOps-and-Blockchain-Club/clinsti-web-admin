@@ -89,7 +89,7 @@ export default function FilterComplaints({setFilterQ}) {
   }
 
   const Report = () =>{
-    let link = 'http://localhost:3000/admin/report?'
+    let link = '/admin/report?'
     if(sDate){
       link += `dateFrom=${sDate}&`
     }
@@ -105,7 +105,7 @@ export default function FilterComplaints({setFilterQ}) {
     axios.get(link).then((v)=>{
       fileDownload(v.data,`Report-${new Date().toJSON()}.csv`)
     }).catch((e)=>{
-      console.log(e)
+      // console.log(e)
     })
   }
   

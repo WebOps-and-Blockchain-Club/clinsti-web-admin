@@ -5,16 +5,17 @@ const useFetch = (url,r) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
+  const baseLink = "http://localhost:3000"
 
   useEffect(() => {
     if(!url){return}
     const source = axios.CancelToken.source();
-    axios.get(url, {
+    console.log(`${baseLink}${url}`)
+    axios.get(`${baseLink}${url}`, {
       cancelToken: source.token
      })
     .then(res => {
       if (res.status !== 200 && res.status !== 404) { // error coming back from server
-        console.log(res.data)
         throw Error('could not fetch the data for that resource');
       }
       if(res.status === 404){
@@ -30,7 +31,7 @@ const useFetch = (url,r) => {
     .catch(err => {
       if (!axios.isCancel(err)) {
         setIsPending(false)
-          if(err.response.status === 404){
+          if(err && err.response && err.response.status === 404){
             setError('No Data Found')
             return setData(null)
 

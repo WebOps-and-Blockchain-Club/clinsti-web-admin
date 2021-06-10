@@ -3,7 +3,7 @@ import PieCharT from "./PieChart";
 
 
 const Stats = () => {
-  const {data:stats,isPending,error} = useFetch(`http://localhost:3000/admin/piechart`)
+  const {data:stats,isPending,error} = useFetch(`/admin/piechart`)
   return (
     <div className="stats">
       {isPending && <div>Loading Stats</div> }
