@@ -5,7 +5,7 @@ const useFetch = (url,r) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
-  const baseLink = process.env.REACT_APP_API_URL || "http://localhost:3000"
+  const baseLink = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if(!url){return}
