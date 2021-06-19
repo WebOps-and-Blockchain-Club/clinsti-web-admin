@@ -7,7 +7,7 @@ import {MdLocationOn} from "react-icons/md"
 import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure()
-const baseLink = process.env.REACT_APP_API_URL
+const baseLink = process.env.REACT_APP_API_URL || "http://localhost:3000"
 
 const ComplaintDetails = ({setSelectedImg}) => {
   const statusValues = [
