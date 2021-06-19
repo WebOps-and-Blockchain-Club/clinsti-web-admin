@@ -1,3 +1,5 @@
+add REACT_APP_API_URL in .env file
+
 from node server folder run the server in new terminal and keep it open and running . the server should be running on port `3000`
 
 next to run the web-app

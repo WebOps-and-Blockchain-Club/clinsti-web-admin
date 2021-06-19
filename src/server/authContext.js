@@ -5,7 +5,7 @@ const AuthContext = React.createContext();
 
 function AuthContextProvider(props) {
     const [loggedIn, setLoggedIn] = useState(false);
-    const baseLink = process.env.PORT ||  "http://localhost:3000"
+    const baseLink = process.env.REACT_APP_API_URL ||  "http://localhost:3000"
 
     async function getLoggedIn(){
       await axios.get(`${baseLink}/admin/complaints/1`).then((res)=>{
