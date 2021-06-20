@@ -89,7 +89,7 @@ export default function FilterComplaints({setFilterQ}) {
   }
 
   const Report = () =>{
-    let link = '/admin/report?'
+    let link = process.env.REACT_APP_API_URL + '/admin/report?'
     if(sDate){
       link += `dateFrom=${sDate}&`
     }
