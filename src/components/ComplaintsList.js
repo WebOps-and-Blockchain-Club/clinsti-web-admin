@@ -65,8 +65,8 @@ const ComplaintsList = ({filterQ}) => {
 
   const getLocation = (loc) =>{
     try{
-      JSON.parse(loc)
-      return ( <> <MdLocationOn/>Location </>)
+      const obj = JSON.parse(loc)
+      return ( <> <MdLocationOn/>{obj["landmark"]} </>)
     }catch{
       return loc;
     }

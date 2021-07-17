@@ -64,7 +64,7 @@ const ComplaintDetails = ({setSelectedImg}) => {
       var obj = JSON.parse(loc)
       return(
           <a href={`https://www.google.com/maps/search/?api=1&query=${obj.Latitude},${obj.Longitude}`} target="_blank" rel="noopener noreferrer">
-            <MdLocationOn/>Location
+            <MdLocationOn/>{obj["landmark"]}
           </a>
       )
     }catch(e){
