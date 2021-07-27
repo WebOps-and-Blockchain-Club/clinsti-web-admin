@@ -49,6 +49,10 @@ const ComplaintDetails = ({setSelectedImg}) => {
    }
   },[complaint])
 
+  useEffect(()=>{
+    setError('');
+  },[id])
+
   const changeRemark = (e) =>{
     setRemark(e.target.value)
     setUpdate(true)
@@ -97,6 +101,9 @@ const ComplaintDetails = ({setSelectedImg}) => {
               </div>
               <button onClick={()=>{upDate()} } disabled={!update}>Update Status</button>
             </div>
+            <div style={{display:"flex", justifyContent:"space-around"}}>
+              {eRror && <p style={{color: "red", padding:"10px"}}>{eRror}</p>}
+            </div>
             <div className="complaint-details">
               <div className="complaint-description">
                 <p>Location</p>
@@ -109,6 +116,10 @@ const ComplaintDetails = ({setSelectedImg}) => {
                 <p>{complaint.waste_type}</p>
                 <p>Posted Time</p>
                 <p>{new Date(complaint.created_time).toLocaleString()}</p>
+                <p>Complainant Name</p>
+                <p>{complaint.user_name}</p>
+                <p>Complainant Email</p>
+                <p>{complaint.user_email}</p>
                 {complaint.status === "Work completed" && <p>Complaint Solved Time</p>}
                 {complaint.status === "Work completed" && <p>{new Date(complaint.completed_time).toLocaleString()}</p>}
                 {complaint.status === "Closed with due justification" && <p>Complaint Closed Time</p>}
@@ -123,7 +134,6 @@ const ComplaintDetails = ({setSelectedImg}) => {
                 </p>}
                 {complaint.feedback_remark && <p>Feedback Remark</p>}
                 {complaint.feedback_remark && <p>{complaint.feedback_remark}</p>}
-                {eRror && <p>{eRror}</p>}
               </div>
               <div className="complaint-img">
                 {complaint.images && 
