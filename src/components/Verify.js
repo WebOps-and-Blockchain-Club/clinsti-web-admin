@@ -33,7 +33,7 @@ const Verify = () => {
     verify();
   }, [token]);
 
-  if (loading) return <div className="loader">Loading...</div>;
+  if (loading) return <div className="verify-loader">Loading...</div>;
   if (error)
     return (
       <div className="error">
