@@ -13,7 +13,7 @@ axios.defaults.withCredentials = true;
 function Router() {
   const {loggedIn} = useContext(AuthContext);
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="clinsti">
       <Navbar/>
       <div className="content">
         {!loggedIn && 
