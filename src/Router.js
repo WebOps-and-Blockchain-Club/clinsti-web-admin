@@ -7,6 +7,7 @@ import SignIn from './components/SignIn';
 import Complaints from './components/Complaints';
 import FeedbackList from './components/FeedbackList';
 import axios from 'axios'
+import Verify from './components/Verify';
 axios.defaults.withCredentials = true;
 
 
@@ -18,6 +19,9 @@ function Router() {
       <div className="content">
         {!loggedIn && 
           <Switch>
+            <Route path="/verify/:token" >
+              <Verify/>
+            </Route>
             <Route path="/" >
               <SignIn/>
             </Route>
